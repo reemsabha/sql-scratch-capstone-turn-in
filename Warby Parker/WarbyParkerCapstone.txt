@@ -5,7 +5,7 @@ LIMIT 10;
 
 /*Question 2*/ 
 SELECT question, 
-	COUNT (DISTINCT user_id)
+	COUNT (DISTINCT user_id) AS ‘Number of Responses’
 FROM survey
 GROUP BY question; 
 
@@ -61,7 +61,7 @@ LEFT JOIN home_try_on h
 LEFT JOIN purchase p
 	ON p.user_id = q.user_id)
 SELECT count(*),
-100.00*SUM(is_purchase)/SUM(is_home_try_on)
+100.00*SUM(is_purchase)/SUM(is_home_try_on) AS ‘Conversion Rate’
 FROM quiz_to_purchase; 
 
 WITH quiz_to_purchase as (
@@ -74,7 +74,7 @@ LEFT JOIN home_try_on h
 	ON q.user_id = h.user_id
 LEFT JOIN purchase p
 	ON p.user_id = q.user_id)
-SELECT count(is_purchase)
+SELECT 100.00* sum(is_purchase)/count(is_purchase) AS '3 Pair Conversion Rate' 
 FROM quiz_to_purchase
 WHERE number_of_pairs = '3 pairs'; 
 
@@ -89,7 +89,7 @@ LEFT JOIN home_try_on h
 	ON q.user_id = h.user_id
 LEFT JOIN purchase p
 	ON p.user_id = q.user_id)
-SELECT count(is_purchase)
+SELECT 100.00* sum(is_purchase)/count(is_purchase) AS '5 Pair Conversion Rate'
 FROM quiz_to_purchase
 WHERE number_of_pairs = '5 pairs'; 
 
